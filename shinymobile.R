@@ -9,20 +9,28 @@ ui <- fluidPage(theme = shinytheme("flatly"),
                 titlePanel("Hospital Prescription Template"),
                 
                 # Prescription form
-                sidebarLayout(
-                  sidebarPanel(
-                    textInput("patient_name", "Patient Name:", ""),
-                    textInput("medication", "Medication:", ""),
-                    numericInput("dosage", "Dosage:", value = 0),
-                    selectInput("frequency", "Frequency:",
-                                choices = c("Once Daily", "Twice Daily", "Three Times Daily", "Four Times Daily")),
-                    actionButton("add_btn", "Add Prescription"),
-                    downloadButton("export_btn", "Export as CSV")
-                  ),
-                  
-                  # Display prescriptions
-                  mainPanel(
-                    DT::dataTableOutput("prescription_table")
+                fluidRow(
+                  column(width = 12,
+                         textInput("patient_name", "Patient Name:", ""),
+                         textInput("medication", "Medication:", ""),
+                         numericInput("dosage", "Dosage:", value = 0),
+                         selectInput("frequency", "Frequency:",
+                                     choices = c("Once Daily", "Twice Daily", "Three Times Daily", "Four Times Daily")),
+                         actionButton("add_btn", "Add Prescription")
+                  )
+                ),
+                
+                # Display prescriptions
+                fluidRow(
+                  column(width = 12,
+                         DT::dataTableOutput("prescription_table")
+                  )
+                ),
+                
+                # Export as CSV
+                fluidRow(
+                  column(width = 12,
+                         downloadButton("export_btn", "Export as CSV")
                   )
                 )
 )
